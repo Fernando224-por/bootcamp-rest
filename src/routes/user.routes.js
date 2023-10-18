@@ -7,6 +7,7 @@ const router = Router()
 
 router.post('/register', validateSchema(registerUser), register)
 router.post('/login', validateSchema(loginSchema), login)
+// authRequired hace la validacion del token JWT
 router.get('/protected', authRequired, protectedRoute)
 router.post('/logout', logout)
 export default router
