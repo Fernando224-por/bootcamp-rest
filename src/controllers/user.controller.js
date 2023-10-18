@@ -44,6 +44,11 @@ export const login = async (req, res) => {
         message: ['Invalid credentials']
       })
     }
+    const token = await createAccessToken({
+      id: userfound._id,
+      name: userfound.name
+    })
+    res.cookie('token', token)
     res.json({
       id: userfound._id,
       username: userfound.username,

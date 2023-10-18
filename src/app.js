@@ -17,8 +17,8 @@ app.use(cors({
   optionsSuccessStatus: 204
 }))
 app.use(cookieParser())
-app.use('/api', testRouter)
 app.use('/api', userRouter)
+app.use('/api', testRouter) // bootcamps
 app.use('/api', courseRouter)
 app.use('/api', reviewRouter)
 
