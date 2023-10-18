@@ -1,5 +1,6 @@
 import UserModel from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
+import { createAccessToken } from '../libs/jwt.js'
 export const register = async (req, res) => {
   const { name, email, role, password } = req.body
   try {
@@ -17,6 +18,10 @@ export const register = async (req, res) => {
       password: hash
     })
     const userSave = await newUser.save()
+    const token = await createAccessToken({
+      id: userSave.id
+    })
+    res.cookie('token', token)
     res.json(userSave)
   } catch (err) {
     return res.status(500).json({
@@ -49,4 +54,9 @@ export const login = async (req, res) => {
       message: 'Bad request, server response: ', err
     })
   }
+}
+export const protectedRoute = async (req, res) => {
+  return res.status(200).json({
+    message: 'esta es una ruta protegida'
+  })
 }
