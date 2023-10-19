@@ -1,6 +1,6 @@
 import BootcampModel from '../models/bootcamp.model.js'
 
-export const getTest = async (req, res) => {
+export const getBootcamps = async (req, res) => {
   try {
     const bootcamps = await BootcampModel.find({})
     res.json(bootcamps)
@@ -11,7 +11,21 @@ export const getTest = async (req, res) => {
   }
 }
 
-export const postTest = async (req, res) => {
+export const getBootcamp = async (req, res) => {
+  const { id } = req.body
+  try {
+    const bootcamp = await BootcampModel.findById({
+      _id: id
+    })
+    res.json(bootcamp)
+  } catch (err) {
+    return res.status(500).json({
+      message: 'bad request, Server response:', err
+    })
+  }
+}
+
+export const postBootcamp = async (req, res) => {
   try {
     const { name, phone, address, topics, averageRating } = req.body
     const newBootcamp = new BootcampModel({
@@ -46,7 +60,7 @@ export const putBootcamp = async (req, res) => {
   }
 }
 
-export const deleteTest = async (req, res) => {
+export const deleteBootcamp = async (req, res) => {
   const deleteBootcamp = await BootcampModel.findByIdAndDelete(req.params.id)
   try {
     if (!deleteBootcamp) {

@@ -8,7 +8,7 @@ export const registerCourse = z.object({
   description: z.string({
     required_error: 'Description is required'
   }).min(8, {
-    message: 'Description must be a least 100 characters'
+    message: 'Description must be a least 8 characters'
   }),
   weeks: z.number({
     required_error: 'Weeks is required'
